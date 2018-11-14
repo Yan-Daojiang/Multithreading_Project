@@ -1,7 +1,7 @@
 /**
  * @author: Yan_Daojiang
  * @date: 2018/11/13
- * @description:
+ * @description:哈希表存储系统中的用户数据
  **/
 import java.sql.SQLException;
 import java.util.*;

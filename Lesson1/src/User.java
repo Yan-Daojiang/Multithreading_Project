@@ -1,7 +1,7 @@
 /**
  * @author: Yan_Daojiang
  * @date: 2018/11/13
- * @description:
+ * @description:父类
  **/
 public abstract class User {
     private String name;
