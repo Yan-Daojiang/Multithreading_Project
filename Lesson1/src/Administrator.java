@@ -4,7 +4,7 @@ import java.util.Scanner;
 /**
  * @author: Yan_Daojiang
  * @date: 2018/11/13
- * @description:
+ * @description:管理人员类，主要负管理人员的的相关的操作
  **/
 public class Administrator extends User {
     public Administrator(String name, String password, String role) {
@@ -14,6 +14,8 @@ public class Administrator extends User {
     //用户列表显示
     public void listUser(){
         System.out.println("用户姓名\t用户密码\t用户角色");
+
+        //枚举哈希表中的值，用来输出系统中的人员信息
         for(Enumeration<User> e=DataProcessing.getAllUser();e.hasMoreElements();) {
             User user=e.nextElement();
             System.out.println(user.getName()+"\t\t"+user.getPassword()+"\t\t\t"+user.getRole());
@@ -22,7 +24,6 @@ public class Administrator extends User {
 
     //删除用户
     public void delUser() {
-        sc.nextLine();
         System.out.print("输入您要删除的用户姓名:");
         String name = sc.nextLine();
         if (DataProcessing.delete(name))
@@ -31,45 +32,89 @@ public class Administrator extends User {
             System.out.println("操作不成功，请重试");
     }
 
+    //增加用户
+    public void addUser(){
+        System.out.print("请输入新用户的用户名:");
+        String name=sc.nextLine();
+        System.out.print("请输入新用户的用户密码:");
+        String pwd=sc.nextLine();
+        System.out.print("请输入新用户的用户身份:");
+        String role=sc.nextLine();
+        if(DataProcessing.insert(name,pwd,role)){
+            System.out.println("添加用户成功");
+        }
+    }
 
+    //修改用户信息
+    public void changeInfo(){
+        System.out.print("请输入需要修改的用户名:");
+        String name=sc.nextLine();
+        System.out.print("请输入修改后的密码:");
+        String pwd=sc.nextLine();
+        System.out.print("请输入修改后的身份:");
+        String role=sc.nextLine();
+        if(DataProcessing.update(name,pwd,role))
+            System.out.println("用户信息修改成功");
+        else
+            System.out.println("用户信息未能成功修改，请检查您的操作是否正确!");
+    }
+
+    //管理人员操作菜单
     public void showMenu() {
         System.out.println("************您已进入管理员系统*****************");
         String in="abc";
         do {
             //对菜单选项进行输出
+            System.out.println("1.修改用户\n2.删除用户\n3.新增用户\n4.用户列表\n" +
+                    "5.下载文件\n6.文件列表\n7.修改密码\n8.退出");
 
-            System.out.println("1.修改用户\n2.删除用户\n3.新增用户\n4.用户列表\n5.下载文件\n6.文件列表\n7.修改密码\n8.退出");
-            System.out.printf("请输入您的选择：");
-            in = sc.next();
             //根据输入进行相关的操作
+            System.out.printf("请输入您的选择:");
+            in = sc.nextLine();
             switch (in) {
                 case "1":{//修改用户
-
+                    changeInfo();
+                    break;
                 }
                 case "2": {//删除用户
                     delUser();
                     break;
                 }
-                case "3": {
-
+                case "3": {//新增用户
+                    addUser();
+                    System.out.println("新增用户成功!");
+                    break;
                 }
                 case "4":{//列表显示用户
                     listUser();
                     break;
                 }
-                case "5":{
-
+                case "5":{//下载文件
+                    System.out.print("请输入要下载的文件名:");
+                    String filename=sc.nextLine();
+                    if(downloadFile(filename))
+                        System.out.println("文件下载成功\n");
+                    else
+                        System.out.println("文件下载失败\n");
+                    break;
                 }
-                case "6":{
-
+                case "6":{//文件列表显示
+                    showFileList();
+                    break;
                 }
-                case "7":{
-
+                case "7": {//密码修改
+                    System.out.print("请输入您的新密码:");
+                    String pwd = sc.nextLine();
+                    if (changeSelfInfo(pwd))
+                        System.out.println("密码修改成功!\n");
+                    else
+                        System.out.println("密码修改不成功!\n");
+                    break;
                 }
-                case "8":{
+                case "8":{//退出系统
                     exitSystem();
                 }
-                default: {
+                default: {//错误选择提示信息
                     System.out.println("您的输入有误，请检查输入");
                     break;
                 }
