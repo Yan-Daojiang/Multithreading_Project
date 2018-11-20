@@ -7,9 +7,6 @@ import java.sql.*;
  * @description:
  **/
 
-import java.util.*;
-import java.sql.*;
-
 public  class DataProcessing {
     private static boolean connectToDB=false;
 

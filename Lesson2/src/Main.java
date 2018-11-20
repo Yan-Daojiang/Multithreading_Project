@@ -38,7 +38,7 @@ public class Main {
                     User temp=null;
 
                     try{
-                      temp=DataProcessing.search(name,pwd);
+                        temp=DataProcessing.search(name,pwd);
                         if(temp!=null)
                             //找到就根据身份进行对象的创建
                             //根据temp的身份显示相关管理人员的菜单信息
@@ -49,7 +49,7 @@ public class Main {
                         System.out.println(e.getMessage());
                     } catch(IllegalStateException e){
                         System.out.println(e.getMessage());
-                    }finally {
+                    }finally{
                         break;
                     }
                 }
