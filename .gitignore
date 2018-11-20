@@ -1,4 +1,7 @@
 ﻿#设置过滤文件
+ 
+*.doc
+*.docx
 
 # Compiled class file
 *.class
