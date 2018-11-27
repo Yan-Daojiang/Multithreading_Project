@@ -49,13 +49,14 @@ public abstract class User {
             //如果不存在文件就不能执行操作
             if(doc==null)
                 return false;
-
-            //构建指定文件
-            File readfile=new File(uploadpath+doc.getFilename());
-            InputStream in=new FileInputStream(readfile);
-
-            byte[] buffer=new byte[10240];//创建字节数组
-            in.read(buffer);//读取内容放到字节数组中
+            FileInputStream fin=new FileInputStream(uploadpath+doc.getFilename());
+            int i,j=0;
+            byte[] content=new byte[fin.available()];
+            while((i=fin.read())!=-1){
+                content[j]=(byte)i;
+                j++;
+            }
+            fin.close();
 
             //获取下载下来的文件的文件名
             String filename=doc.getFilename();
@@ -66,7 +67,7 @@ public abstract class User {
 
             //根据文件创建输出流
             OutputStream out=new FileOutputStream(newfile);
-            out.write(buffer);
+            out.write(content);
 
         }catch(SQLException e){
             System.out.println(e.getMessage());

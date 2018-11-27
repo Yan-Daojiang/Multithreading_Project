@@ -43,10 +43,14 @@ public class Operator extends User {
 
         try {
             //按照流的方式读取文件
-            InputStream in = new FileInputStream(uploadfile);
-
-            byte[] buffer = new byte[10240];//创建字节数组
-            in.read(buffer);//读取内容放到字节数组中
+            FileInputStream fin=new FileInputStream(uploadfile);
+            int i,j=0;
+            byte[] content=new byte[fin.available()];
+            while((i=fin.read())!=-1){
+                content[j]=(byte)i;
+                j++;
+            }
+            fin.close();
 
             //获取要上传的文件的文件名，同时设定上传文件的保存位置
             File newfile=new File(uploadpath+uploadfile.getName());
@@ -57,7 +61,7 @@ public class Operator extends User {
 
             //按照流的方式写入文件
             OutputStream out=new FileOutputStream(newfile);
-            out.write(buffer);
+            out.write(content);
 
             //最后在系统中对上传的文件信息进行保存
             Date date=new Date();
