@@ -1,0 +1,101 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+/**
+ * @author: Yan_Daojiang
+ * @date: 2018/11/27
+ * @description:浏览人员类
+ * **对文件的操作进行改写
+ **/
+
+public class Browser extends User {
+    private String name;
+    private String password;
+    private String role;
+
+
+    public Browser(String name, String password, String role) {
+        super(name, password, role);
+        this.name=name;
+        this.password=password;
+        this.role=role;
+    }
+
+    //档案浏览员菜单
+    public void showMenu(){
+        System.out.println("************您已进入浏览员系统*****************");
+        String in="abc";//先将输入初始化为一个无关的值
+
+        do {
+            //对菜单选项进行输出
+            Scanner sc = new Scanner(System.in);
+            System.out.println("1.下载文件\n2.文件列表\n3.修改密码\n4.退出");
+
+            //根据输入进行相关的操作
+            System.out.printf("请输入您的选择:");
+            in = sc.next();
+
+            //根据输入匹配操作
+            switch (in) {
+                case "1": {//下载文件
+                    sc.nextLine();
+
+                    System.out.print("请输入你要下载的文件名:");
+                    String filename=sc.nextLine();
+
+                    try {
+                        if (downloadFile(filename))
+                            System.out.println("文件下载成功\n");
+                        else
+                            System.out.println("文件下载失败\n");
+                    }catch(IOException e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                }
+
+                case "2": {//文件列表的显示
+                    try {
+                        showFileList();
+
+                    }catch(SQLException e){
+                        System.out.println(e.getMessage());
+                    }finally{
+                        break;
+                    }
+                }
+
+                case "3":{//修改密码
+                    //读取用户的新密码
+                    sc.nextLine();
+                    System.out.print("请输入你的新密码:");
+                    String pwd = sc.nextLine();
+                    //调用父类函数，修改密码
+                    try {
+                        if (changeSelfInfo(pwd))
+                            System.out.println("密码修改成功!\n");
+                        else
+                            System.out.println("密码修改不成功!\n");
+                    }catch(SQLException e){
+                        System.out.println(e.getMessage());
+                    }finally{
+                        break;
+                    }
+                }
+
+                case "4":{//退出系统
+                    exitSystem();
+                }
+
+                default: {//错误输入的提示信息
+                    System.out.println("您的输入有误，请检查输入");
+                    break;
+                }
+            }
+
+        }while (in != null) ;
+    }
+}
