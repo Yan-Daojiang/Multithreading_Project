@@ -173,7 +173,8 @@ public class Administrator extends User {
                 }
 
                 case "8":{//退出系统
-                    exitSystem();
+                    return;
+                    //exitSystem();
                 }
 
                 default: {//错误选择提示信息

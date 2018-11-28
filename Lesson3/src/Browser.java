@@ -87,7 +87,8 @@ public class Browser extends User {
                 }
 
                 case "4":{//退出系统
-                    exitSystem();
+                    return;
+                    //exitSystem();
                 }
 
                 default: {//错误输入的提示信息

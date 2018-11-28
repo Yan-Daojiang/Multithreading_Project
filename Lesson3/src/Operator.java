@@ -11,6 +11,7 @@ import java.util.Scanner;
  * @description:操作人员类
  * ****本次实验实现的文件的上传下载和文件的查询
  **/
+
 public class Operator extends User {
     private String name;
     private String password;
@@ -19,9 +20,6 @@ public class Operator extends User {
 
     public Operator(String name, String password, String role) {
         super(name, password, role);
-        this.name=name;
-        this.password=password;
-        this.role=role;
     }
 
     Scanner sc = new Scanner(System.in);//创建用于输入的一个对象
@@ -42,7 +40,7 @@ public class Operator extends User {
         File uploadfile=new File(filename);
 
         try {
-            //按照流的方式读取文件
+            //按照流的方式读取文件的全部字节
             FileInputStream fin=new FileInputStream(uploadfile);
             int i,j=0;
             byte[] content=new byte[fin.available()];
@@ -66,7 +64,7 @@ public class Operator extends User {
             //最后在系统中对上传的文件信息进行保存
             Date date=new Date();
             Timestamp timestamp=new Timestamp(date.getTime());
-            DataProcessing.insertDoc(ID,name,timestamp,description,uploadfile.getName());
+            DataProcessing.insertDoc(ID,super.getName() , timestamp, description, uploadfile.getName());
 
         }
 
@@ -146,7 +144,8 @@ public class Operator extends User {
                 }
 
                 case "5":{//退出系统
-                    exitSystem();
+                    return;
+                    //exitSystem();
                 }
 
                 default: {
